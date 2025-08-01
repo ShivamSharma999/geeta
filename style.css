@@ -1,0 +1,103 @@
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+}
+.hero {
+  text-align: center;
+  padding: 4rem 1rem 2rem;
+  border-radius: 20px;
+  background: url("gita.png") no-repeat center center/cover;
+  margin: 30px 8rem;
+}
+.hero *:not(button) {
+  text-shadow: 4px 4px 4px #000000a6;
+}
+.hero h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+  color: rgb(254 223 137);
+  font-weight: 800;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.hero p {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+.cta-btn {
+  background: #ff845e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 2.2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px #ff5e6233;
+  transition: background 0.2s;
+}
+.cta-btn:hover {
+  background: #ff7e62;
+}
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 0;
+}
+.feature-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 2px 16px var(--shadow);
+  padding: 1.5rem;
+  width: 600px;
+  flex-shrink: 0;
+  cursor: pointer;
+  text-align: center;
+}
+.feature-card h3 {
+  color: #ffac5e;
+  margin-bottom: 0.7rem;
+}
+.feature-card p {
+  color: var(--text);
+  font-size: 1rem;
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.nav a {
+  color: rgb(254 223 137);
+  font-weight: 200;
+  text-decoration: none;
+  font-size: 1.1rem;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.nav a:hover {
+  background: #000000a6;
+}
+@media (max-width: 700px) {
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero{
+    margin: 0;
+    border-radius: 0;
+  }
+  .feature-card {
+    width: calc(100vw - 3rem - 40px);
+    margin: 20px;
+  }
+}

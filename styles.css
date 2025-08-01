@@ -1,0 +1,419 @@
+/* styles.css */
+/* Modern Orange Theme - Revamped for a Professional Look */
+
+/* --- Google Fonts & Icons --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* --- Root Variables for Theming --- */
+:root {
+    /* Orange Theme */
+    --primary-color: #F47B2D;
+    --primary-color-darker: #E56A1C;
+    --primary-gradient: linear-gradient(135deg, #FFC371 0%, #FF5F6D 100%);
+    --secondary-color: #6a4a3a;
+    
+    /* Light Mode */
+    --bg-light: #FFF8F0;
+    --text-dark: #1b1715;
+    --card-bg-light: #ffffff;
+    --shadow-light: rgba(244, 123, 45, 0.25);
+    --border-light: #EAE0D5;
+
+    /* Night Mode */
+    --bg-dark: #131313;
+    --text-light: #EAE0D5;
+    --card-bg-dark: #202020;
+    --shadow-dark: rgba(0, 0, 0, 0.25);
+    --border-dark: #4d443e;
+
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+* {
+    transition: all .5s linear;
+    font-family: 'Montserrat';
+}
+
+/* --- Base & Body Styles --- */
+body {
+    --bg: var(--bg-light);
+    --text: var(--text-dark);
+    --card-bg: var(--card-bg-light);
+    --shadow: var(--shadow-light);
+    --border: var(--border-light);
+    font-family: 'Noto Serif', serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    line-height: 1.8;
+    transition: var(--transition-smooth);
+}
+
+.night-mode {
+    --bg: var(--bg-dark);
+    --text: var(--text-light);
+    --card-bg: var(--card-bg-dark);
+    --shadow: var(--shadow-dark);
+    --border: var(--border-dark);
+}
+
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* --- Header & Typography --- */
+header {
+    text-align: center;
+    padding: 4rem 1.5rem;
+    margin: 1.5rem;
+    border-radius: 20px;
+    background: url('gita.png') no-repeat center center/cover;
+    nav {
+        a{
+        transition: all .1s ease;
+        font-family: 'Montserrat';
+        background: var(--shadow);
+        border-radius: 10px;
+        padding: 10px;
+    }
+    }
+}
+
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
+    font-weight: 700;
+    color: var(--text-light);
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.37);
+    margin: 0;
+}
+
+header h1 span {
+    transition: opacity 0.6s, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+header h2 {
+    font-size: 2rem;
+    color: #FEDF89;
+    margin: 0;
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.479);
+    font-family: 'Montserrat', sans-serif;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out 0.8s;
+}
+
+header h2.visible {
+    opacity: 1;
+}
+
+/* --- Controls: Search, Buttons, Selects --- */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+    transition: var(--transition-smooth);
+    position: sticky;
+    top: 1rem;
+    z-index: 1000;
+    border: 1px solid var(--border);
+}
+
+#search-input {
+    flex-grow: 1;
+    min-width: 250px;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-family: 'Noto Serif', serif;
+    border: 1px solid var(--border);
+    background-color: var(--bg);
+    color: var(--text);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-smooth);
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--shadow);
+    background-color: var(--card-bg);
+}
+
+/* --- Generic Button & Select Styling --- */
+select, .search-container button {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.random-verse-btn, .fav-list-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.clear-filter-btn {
+    background-color: #ff5e62 !important;
+    color: white !important;
+    border-color: #ff5e62 !important;
+}
+
+
+.mode-toggle-btn {
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--bg) 0%, var(--primary-color) 100%);
+    color: var(--text);
+    border: 1.5px solid #ffac5e;
+    cursor: pointer;
+    font-size: 1.5rem;
+    aspect-ratio: 1/1 !important;
+    padding: 0.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: background 0.2s, color 0.2s;
+}
+
+select {
+    background-color: var(--card-bg);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+select:hover, .search-container button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow);
+}
+
+/* --- Verse Card Styling --- */
+#verses-container {
+    display: grid;
+    gap: 2rem;
+}
+
+.verse, .chapter {
+    background: var(--card-bg);
+    border-radius: var(--border-radius-md);
+    padding: 2rem 2.5rem;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.02);
+    transition: var(--transition-smooth);
+    border: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.verse.visible, .chapter {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chapter {
+    background: linear-gradient(45deg, var(--bg) 0%, var(--card-bg) 10%, var(--primary-color) 100%);
+}
+
+.verse:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 12px 40px var(--shadow);
+    border-color: var(--primary-color);
+}
+
+.verse h3 {
+    color: var(--secondary-color);
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.verse pre {
+    white-space: pre-wrap;
+    font-size: 1.2rem;
+    line-height: 2;
+    color: var(--text);
+    transition: color 0.4s;
+}
+
+.verse summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-color);
+}
+
+.verse .material-symbols-rounded {
+    vertical-align: -5px;
+    font-size: 1.2em;
+    transition: transform 0.2s;
+}
+
+ .verse button {
+    color: var(--text);
+    border-radius: 50%;
+    padding: 10px;
+    aspect-ratio: 1/1;
+    background: transparent;
+    font-size: 20px;
+    cursor:pointer;
+}
+
+.verse button:hover {
+    color: var(--primary-color);
+    background: var(--bg);
+    box-shadow: none;
+}
+.verse .share-btn:hover .material-symbols-rounded, .verse .fav-btn:hover .material-symbols-rounded, .verse .download-img-btn:hover .material-symbols-rounded, .verse .play-audio-btn:hover .material-symbols-rounded {
+    transform: scale(1.2);
+}
+
+
+/* --- Scroll-to-Top Button --- */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    font-size: 1.9rem;
+    cursor: pointer;
+    box-shadow: 0 5px 20px var(--shadow);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: var(--transition-smooth);
+    border: none;
+}
+.scroll-to-top:hover { transform: scale(1.1); }
+
+/* --- Informational Message Styling --- */
+.info-message {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-md);
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+    color: #a99985;
+    font-size: 0.95rem;
+}
+footer a {
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+footer a:hover {
+    border-bottom-color: var(--primary-color);
+}
+
+body.night-mode #search-input {
+    background: #242424;
+    color: #fff;
+}
+body.night-mode #search-input:focus {
+    box-shadow: 0 0 0 4px rgba(244, 123, 45, 0.2);
+}
+body.night-mode .verse h3 {
+    color: #D3B89D;
+}
+body.night-mode footer a { color: var(--primary-color); }
+
+/* --- Animations --- */
+.verse.reveal {
+    animation: reveal-up 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes reveal-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        top: 0;
+        border-radius: 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .container { padding: 0 1rem; }
+    .verse { padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+    body { font-size: 15px; } /* Base size for mobile */
+    .verse { padding: 1.25rem 1rem; }
+}
+
+@font-face {
+    font-family: 'Sanatan Symbols';
+    font-weight: 400;
+    font-style: normal;
+    src: url('icons.ttf') format('truetype');
+}
+
+.material-symbols-rounded, .material-icons {
+    font-family: 'Sanatan Symbols', 'Material Symbols Rounded', sans-serif;
+}
+
+svg {
+    color: transparent;
+    max-width: 100%;
+    margin: 20px 0;
+}
+
+::-webkit-scrollbar {
+    border-radius: 0;
+    background: var(--shadow-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--shadow-dark);
+}
+
+button {
+    border: none;
+}

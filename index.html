@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="The one of the best AI Assistants in the world, serving you about Sanatan Dharma, SANATAN AI"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta property="og:title" content="SanatanAI" />
+  <meta name="theme-color" content="#000">
+  <title>SANATAN AI - Gita Explorer</title>
+  <meta property="og:image" content="slogo.ico" />
+  <meta property="og:url" content="https://sanatanai.tiiny.site/" />
+  <link rel="icon" type="image/ico" href="slogo.ico" />
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Geeta Page Content (hidden by default) -->
+  <div id="geeta-page" style="display: none;">
+    <header>
+      <h1>The Bhagavad Gita  </h1>
+      <h2>The timeless wisdom of Krishna's counsel to Arjuna.</h2>
+      <nav style="margin-top:1rem;">
+        <a href="index.html" style="color:#ffffff;font-weight:bold;text-decoration:none;font-size:1.1rem;margin-right:1.5rem;">Home</a>
+      </nav>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search for a verse by number (e.g., '2.47' or '5.23')...">
+        </div>
+
+        <div id="loading" style="text-align: center; font-size: 1.2rem; margin: 2rem;">
+            Loading verses...
+        </div>
+
+        <main id="verses-container"></main>
+    </div>
+
+    <footer>
+        <p>© 2025 Sanatan AI. All Rights Reserved.</p>
+    </footer>
+
+    <div class="scroll-to-top" onclick="scrollToTop()">↑</div>
+  </div>
+
+
+  <!-- Index Page Content (visible by default) -->
+  <div id="index-page">
+    <button class="mode-toggle-btn material-icons">dark_mode</button>
+    <div class="hero">
+      <h1>Bhagavad Gita Explorer</h1>
+      <p>Discover, listen, and reflect on the timeless wisdom of the Bhagavad Gita. Search verses, read translations, and enjoy a modern spiritual experience.</p>
+      <button class="cta-btn" onclick="showGeetaPage()">Explore Verses</button>
+      <div class="nav">
+        <a href="#" onclick="showGeetaPage()">All Verses</a>
+        <a href="#chapters">Chapters</a>
+      </div>
+    </div>
+    <section id="chapters" class="features"></section>
+    <footer style="text-align:center;padding:2rem 1rem;color:#888;font-size:1rem;">
+      © 2025 @ Sanatan AI
+    </footer>
+  </div>
+
+
+  <script type="module">
+    // All of your modules and scripts will go here.
+    // We are going to put the logic for showing/hiding pages here as well.
+    import hr from './confetti.js';
+    window.hr = hr;
+
+    const impVerses = ["2.11", "2.12", "2.14", "2.21", "2.47", "2.48", "2.7", "3.19", "3.21", "3.35", "3.8", "3.9", "4.1", "4.3", "4.38", "4.4", "4.7", "4.8", "4.9", "5.16", "6.23", "6.5", "7.25", "7.26", "7.3", "7.5", "8.6", "8.7", "9.22", "9.34", "10.8", "12.10", "12.13", "12.14", "12.2", "12.20", "12.8", "18.46", "18.50", "18.58", "18.65", "18.66", "18.78"];
+
+    async function fetchChapters() {
+      try {
+        const response = await fetch('gita/data/chapters.json');
+        const chapters = await response.json();
+        const response1 = await fetch('gita/verse.json');
+        const verses = await response1.json();
+        const chaptersSection = document.getElementById('chapters');
+        const choosenVerse = impVerses[Math.floor(Math.random() * impVerses.length)];
+        const verseOfTheDay = verses[getId(choosenVerse)];
+
+        const verseDiv = document.createElement('div');
+        verseDiv.className = 'feature-card';
+        verseDiv.innerHTML = `<h3>Verse of the day : ${choosenVerse}</h3><h3>${verseOfTheDay.text}</h3>${window.hr}`;
+        chaptersSection.appendChild(verseDiv);
+        chaptersSection.innerHTML += '<br><br>';
+
+        chapters.forEach(chapter => {
+          const chapterDiv = document.createElement('div');
+          chapterDiv.className = 'feature-card';
+          chapterDiv.innerHTML = `<h3>${chapter.chapter_number}: ${chapter.name}</h3><p>${chapter.chapter_summary}</p>${window.hr}`;
+          chaptersSection.appendChild(chapterDiv);
+          chapterDiv.addEventListener('click', () => {
+            showGeetaPage(chapter.chapter_number);
+          });
+        });
+      } catch (error) {
+        console.error('Error fetching chapters:', error);
+      }
+    }
+    fetchChapters();
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const isNightMode = localStorage.getItem('nightMode') || false;
+        if(isNightMode === 'true') {
+            document.body.classList.add('night-mode');
+            document.querySelector('.mode-toggle-btn').textContent = 'light_mode';
+        }
+
+        // Logic to show Geeta page if a chapter is in the URL or local storage
+        const urlParams = new URLSearchParams(window.location.search);
+        const chapterParam = urlParams.get('chapter');
+        const lastChapter = localStorage.getItem('currentChapter');
+        if (chapterParam || lastChapter) {
+            showGeetaPage(chapterParam || lastChapter);
+        }
+    });
+
+    document.querySelector('.mode-toggle-btn').addEventListener('click', () => {
+        const isNightMode = document.body.classList.toggle('night-mode');
+        localStorage.setItem('nightMode', isNightMode);
+        document.querySelector('.mode-toggle-btn').textContent = isNightMode ? 'light_mode' : 'dark_mode';
+    });
+
+    function getId(verse_no, chap_no = 0, isNumbered = true) {
+        if (isNumbered) {
+            chap_no = parseInt(verse_no.split('.')[0]);
+            verse_no = parseInt(verse_no.split('.')[1]);
+        }
+        let NoOfVerses = [47, 72, 43, 42, 29, 47, 30, 28, 34, 42, 55, 20, 35, 27, 20, 24, 28, 78];
+        let total_verses = 0;
+        if (chap_no < 1 || chap_no > NoOfVerses.length) return 0;
+        for (let i = 0; i < chap_no - 1; i++) {
+            total_verses += NoOfVerses[i];
+        }
+        return total_verses + verse_no - 1;
+    }
+
+    // Include the Geeta page script here, and confetti
+  </script>
+  <script type="module" src="confetti.js"></script>
+  <script type="module" src="script.js"></script>
+
+  <script>
+      function showGeetaPage(chapter = 1) {
+          localStorage.setItem('currentChapter', chapter);
+          document.getElementById('index-page').style.display = 'none';
+          document.getElementById('geeta-page').style.display = 'block';
+
+          // Because the Geeta page script runs on DOMContentLoaded, and the page is already loaded,
+          // we might need to manually trigger the verse loading function from script.js
+          // if it doesn't load automatically. We'll ensure the Geeta script handles this.
+          // For now, this is a placeholder for that logic.
+          if(window.loadGeetaContent) {
+            window.loadGeetaContent();
+          }
+      }
+
+      function scrollToTop() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+  </script>
+
+</body>
+</html>
